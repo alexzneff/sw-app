@@ -1,20 +1,46 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require('react')
+const ReactDOM = require('react-dom')
 
-// class HelloWorld extends React.Component {
-//     render() {
-//       return (
-//         <div>
-//           Hello World
-//         </div>
-//       );
-//     }
-//   }
+class HelloWorld extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      firstPlanet: {
+        name: 'Alderaan',
+        climate: 'temperate',
+        population: 2000000000
+      }
+    }
+  }
 
-// ReactDOM.render(
-//     <HelloWorld/>,
-//     document.getElementById('myapp')
-// );
+  componentDidMount () {
+    console.log('component did mount')
+    let response = {}
+    fetch('https://swapi.co/api/planets/?page=1&format=json').then(
+      fetchResponse => {
+        this.fetchResponse = fetchResponse
+      }
+    )
+    console.log('component mounted');
+    const firstPlanet = this.state.firstPlanet;
+    firstPlanet.color = 'brown';
+    this.setState({firstPlanet: firstPlanet })
+  }
 
-const root = document.getElementById('myapp');
-root.innerHTML = '<h2>My App goes here!</h2>';
+  render () {
+    console.log('render')
+    const { firstPlanet } = this.state;
+
+    return (
+      <ul>
+        <li>
+          <div>name: {firstPlanet.name}</div>
+          <div>climate: {firstPlanet.climate}</div>
+          <div>population: {firstPlanet.population}</div>
+        </li>
+      </ul>
+    )
+  }
+}
+
+ReactDOM.render(<HelloWorld />, document.getElementById('myapp'))
