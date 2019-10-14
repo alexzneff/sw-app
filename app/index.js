@@ -60,6 +60,8 @@ class HelloWorld extends React.Component {
     for (let i = 0; i < listOfPlanets.length - 1; i++){
       console.log(`listOfPlanets[${i}]: `, listOfPlanets[i]);
       results.push(<div>{listOfPlanets[i].name}</div>)
+      results.push(<div>{listOfPlanets[i].climate}</div>)
+      results.push(<div>{listOfPlanets[i].population}</div>)
     }
     return results;
   }
